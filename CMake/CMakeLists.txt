@@ -1,14 +1,14 @@
 CMake_Minimum_Required ( VERSION 2.8 )
-Project ( APP_NAME )
+Project ( Chat )
 
 Add_Definitions ( -std=c++0x )
 
-Include_Directories ( "${CMAKE_CURRENT_LIST_DIR}/../Dependencies/Include" )
+Include_Directories ( "${CMAKE_CURRENT_LIST_DIR}/../Source" "${CMAKE_CURRENT_LIST_DIR}/../Dependencies/Include" )
 Link_Directories ( "${CMAKE_CURRENT_LIST_DIR}/../Dependencies/Libraries" )
 
-File ( GLOB CORE_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Core/*" )
-File ( GLOB SERVER_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Server/*" )
-File ( GLOB CLIENT_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Client/*" )
+File ( GLOB CORE_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Chat/Core/*" )
+File ( GLOB SERVER_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Chat/Server/*" )
+File ( GLOB CLIENT_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Chat/Client/*" )
 
 Add_Library ( Core ${CORE_SOURCE} )
 
