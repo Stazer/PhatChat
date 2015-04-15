@@ -3,6 +3,9 @@ Project ( APP_NAME )
 
 Add_Definitions ( -std=c++0x )
 
+Include_Directories ( "${CMAKE_CURRENT_LIST_DIR}/../Dependencies/Include" )
+Link_Directories ( "${CMAKE_CURRENT_LIST_DIR}/../Dependencies/Libraries" )
+
 File ( GLOB CORE_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Core/*" )
 File ( GLOB SERVER_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Server/*" )
 File ( GLOB CLIENT_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Client/*" )
