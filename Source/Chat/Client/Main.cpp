@@ -1,3 +1,5 @@
+#include <Chat/Client/Application.hpp>
+
 int main ( int amountOfArguments , char ** argumentStrings )
 {
     std::vector <std::string> arguments ;
@@ -7,5 +9,5 @@ int main ( int amountOfArguments , char ** argumentStrings )
         arguments.push_back ( argumentStrings [ argument ] ) ;
     }
 
-    return 0 ;
+    return Chat::Client::Application ( ).main ( arguments ) ;
 }
