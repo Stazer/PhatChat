@@ -11,9 +11,10 @@ File ( GLOB SERVER_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Chat/Server/*" )
 File ( GLOB CLIENT_SOURCE "${CMAKE_CURRENT_LIST_DIR}/../Source/Chat/Client/*" )
 
 Add_Library ( Core ${CORE_SOURCE} )
+Target_Link_Libraries ( Core sfml-network )
 
 Add_Executable ( Client ${CLIENT_SOURCE} )
-Target_Link_Libraries ( Client Core )
+Target_Link_Libraries ( Client Core sfml-network )
 
 Add_Executable ( Server ${SERVER_SOURCE} )
-Target_Link_Libraries ( Server Core )
+Target_Link_Libraries ( Server Core sfml-network )
