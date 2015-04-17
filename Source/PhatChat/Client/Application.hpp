@@ -1,12 +1,12 @@
 #pragma once
 
-#include <Chat/Core/Application.hpp>
+#include <PhatChat/Core/Application.hpp>
 
-namespace Chat
+namespace PhatChat
 {
 	namespace Client
 	{
-		class Application : public Chat::Application
+		class Application : public PhatChat::Application
 		{
 			public :
 				int main ( const std::vector <std::string> & arguments ) ;

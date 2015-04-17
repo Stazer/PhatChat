@@ -1,4 +1,4 @@
-#include <Chat/Client/Application.hpp>
+#include <PhatChat/Client/Application.hpp>
 
 int main ( int amountOfArguments , char ** argumentStrings )
 {
@@ -9,5 +9,5 @@ int main ( int amountOfArguments , char ** argumentStrings )
         arguments.push_back ( argumentStrings [ argument ] ) ;
     }
 
-    return Chat::Client::Application ( ).main ( arguments ) ;
+    return PhatChat::Client::Application ( ).main ( arguments ) ;
 }

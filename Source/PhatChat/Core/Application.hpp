@@ -2,7 +2,7 @@
 
 #include <vector>
 
-namespace Chat
+namespace PhatChat
 {
 	class Application
 	{

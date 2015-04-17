@@ -1,5 +1,5 @@
 CMake_Minimum_Required ( VERSION 2.8 )
-Project ( Chat )
+Project ( PhatChat )
 
 Add_Definitions ( -std=c++0x )
 
