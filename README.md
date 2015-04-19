@@ -7,14 +7,14 @@ PhatChat focuses on reliability, extensibility and flexibility.
 ### Directories
 *   CMake - cmake build system script  
 *   Dependencies - dependency related files  
-*   * Dependencies/Include - header of 3rd party libraries  
-*   * Dependencies/Libraries - compiled source codes of 3rd party libraries  
+    * Dependencies/Include - header of 3rd party libraries  
+    * Dependencies/Libraries - compiled source codes of 3rd party libraries  
 *   Documentation - documentation related files  
-*   * Documentation/Templates - document templates provided by the instructor  
+    * Documentation/Templates - document templates provided by the instructor  
 *   Source - source code files  
-*   * Source/PhatChat/Core - source code files of the core library  
-*   * Source/PhatChat/Client - source code files of the client application  
-*   * Source/PhatChat/Server - source code files of the server application  
+    * Source/PhatChat/Core - source code files of the core library  
+    * Source/PhatChat/Client - source code files of the client application  
+    * Source/PhatChat/Server - source code files of the server application  
 
 ### Dependencies
 [SFML](http://sfml-dev.org/ "SFML")  
