@@ -14,7 +14,7 @@ Add_Library ( Core ${CORE_SOURCE} )
 Target_Link_Libraries ( Core sfml-network )
 
 Add_Executable ( Client ${CLIENT_SOURCE} )
-Target_Link_Libraries ( Client Core sfml-network )
+Target_Link_Libraries ( Client Core sfml-system sfml-network fltk )
 
 Add_Executable ( Server ${SERVER_SOURCE} )
-Target_Link_Libraries ( Server Core sfml-network )
+Target_Link_Libraries ( Server Core sfml-system sfml-network )
