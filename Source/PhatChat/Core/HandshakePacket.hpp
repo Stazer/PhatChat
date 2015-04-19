@@ -8,5 +8,4 @@ class HandshakePacket
 
 	private :
 		std::string username ;
-
 } ;
