@@ -1,7 +1,8 @@
 CMake - neccessary files for the cmake build system
 Dependencies - header and static/dynamic library files of used libraries
 Documentation - documentation related files
+Documentation - document templates provided by the instructor
 Source - source code files
-Source/Chat/Core - source code files of the core library
-Source/Chat/Client - source code files of the client application
-Source/Chat/Server - source code files of the server application
+Source/PhatChat/Core - source code files of the core library
+Source/PhatChat/Client - source code files of the client application
+Source/PhatChat/Server - source code files of the server application
