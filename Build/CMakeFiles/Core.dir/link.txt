@@ -1,0 +1,2 @@
+/usr/bin/ar cr libCore.a  CMakeFiles/Core.dir/home/justus/Dokumente/college/cs40a/project01_team01/Source/PhatChat/Core/Packet.cpp.o
+/usr/bin/ranlib libCore.a
