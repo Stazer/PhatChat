@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Network.hpp>
+#include <PhatChat/Core/Packet.hpp>
 
 namespace PhatChat
 {
@@ -14,7 +15,7 @@ namespace PhatChat
 			unsigned int getValue ( ) const ;
 		
 			sf::Packet encode ( bool operationCode = true ) ;
-			static PingPacket decode ( sf::Packet packet , bool operationCode = false ) ;
+			static PhatChat::PingPacket decode ( sf::Packet packet , bool operationCode = false ) ;
 			
 		private :			
 			unsigned int value = 0 ;

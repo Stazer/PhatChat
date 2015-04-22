@@ -24,13 +24,17 @@ sf::Packet PhatChat::PingPacket::encode ( bool operationCode )
 		
 	packet << this->value ;
 }
-PingPacket PhatChat::PingPacket::decode ( sf::Packet packet , bool operationCode )
+PhatChat::PingPacket PhatChat::PingPacket::decode ( sf::Packet packet , bool operationCode )
 {
+	PingPacket pingPacket ;
+
 	if ( operationCode )
 	{
 		unsigned char buffer = 0 ;
 		packet >> buffer ;
 	}
 	
-	packet >> this->value ;
+	packet >> pingPacket.value ;
+	
+	return pingPacket ;
 }
