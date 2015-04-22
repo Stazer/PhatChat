@@ -1,3 +1,0 @@
-/home/justus/Dokumente/college/cs40a/project01_team01/Build/CMakeFiles/Client.dir
-/home/justus/Dokumente/college/cs40a/project01_team01/Build/CMakeFiles/Core.dir
-/home/justus/Dokumente/college/cs40a/project01_team01/Build/CMakeFiles/Server.dir
