@@ -1,16 +1,22 @@
 #pragma once
 
-#include <string>
+#include <SFML/Network.hpp>
 
 namespace PhatChat
 {
-	class PingPacket
+	class PingPacket : public PhatChat::Packet
 	{
 		public :
+			PingPacket ( ) = default ;
+			PingPacket ( unsigned int value ) ;
+			
+			void setValue ( unsigned int value ) ;
+			unsigned int getValue ( ) const ;
+		
 			sf::Packet encode ( bool operationCode = true ) ;
 			static PingPacket decode ( sf::Packet packet , bool operationCode = false ) ;
 			
-		private :
-			PingPacket ( ) = default ;
+		private :			
+			unsigned int value = 0 ;
 	} ;
 }
