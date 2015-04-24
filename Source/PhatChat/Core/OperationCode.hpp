@@ -2,17 +2,15 @@
 
 namespace PhatChat
 {
+	// operation codes of packets
 	enum class OperationCode
 	{
 		PING = 0x0 ,
 		PONG = 0x1 ,
 		
-		HANDSHAKE_HELLO = 0x2 ,
-		HANDSHAKE_BYE = 0x3 ,
+		REQUEST_USERNAME = 0x2 ,
+		RESPONSE_USERNAME = 0x3 ,
 		
-		REQUEST_USERNAME = 0x4 ,
-		RESPONSE_USERNAME = 0x5 ,
-		
-		MESSAGE = 0x6 ,
+		MESSAGE = 0x4 ,
 	} ;
 }
