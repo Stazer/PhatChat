@@ -9,8 +9,9 @@ PhatChat focuses on reliability, extensibility and flexibility.
 *   Dependencies - dependency related files  
     * Dependencies/Include - header of 3rd party libraries  
     * Dependencies/Libraries - compiled source codes of 3rd party libraries  
-*   Documentation - documentation related files  
-    * Documentation/Templates - document templates provided by the instructor  
+*   Documents - important documents  
+    * Documents/Templates - document templates provided by the instructor  
+    * Documents/Presentations - presentations  
 *   Source - source code files  
     * Source/PhatChat/Core - source code files of the core library  
     * Source/PhatChat/Client - source code files of the client application  
