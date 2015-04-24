@@ -8,14 +8,17 @@ namespace PhatChat
 	class Application
 	{
 		public :
+            // default constructor
+            Application ( ) ;
+
             // virtual destructor
 			virtual ~Application ( ) = default ;
 
-			// prevent PhatChat::Application from beeing copied
+			// prevent copying
             Application ( const PhatChat::Application & right ) = delete ;
             PhatChat::Application & operator = ( const PhatChat::Application & right ) = delete ;
 
-            // prevent PhatChat::Application from beeing moved
+            // prevent moving
             Application ( PhatChat::Application && right ) = delete ;
             PhatChat::Application & operator = ( PhatChat::Application && right ) = delete ;
 
