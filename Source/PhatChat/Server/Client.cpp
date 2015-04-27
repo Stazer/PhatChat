@@ -31,3 +31,8 @@ bool PhatChat::Server::Client::receive ( sf::Packet & packet )
 {
     this->socket.receive ( packet ) == sf::Socket::Done ;
 }
+
+void PhatChat::Server::Client::handlePacket ( sf::Packet packet )
+{
+	unsigned char operationCode = 0 ;
+}

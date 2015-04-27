@@ -49,14 +49,13 @@ void PhatChat::Server::ClientManager::update ( )
     {
         if ( this->selector.isReady ( client->getSocket ( ) ) )
         {
-            char buf [ 1024 ] ;
-            std::fill ( buf , buf + 1024 , 0 ) ;
+        	sf::Packet packet ;
 
-            std::size_t received = 0 ;
-            client->getSocket ( ).receive ( buf , 1024 , received ) ;
-
-            std::cout << "received " << received << " bytes\n"
-                      << buf << std::endl ;
+            client->getSocket ( ).receive ( packet ) ;
+            
+            std::cout << "received packet from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << std::endl ;
+        
+        	client->handlePacket ( packet ) ;
         }
     }
 
