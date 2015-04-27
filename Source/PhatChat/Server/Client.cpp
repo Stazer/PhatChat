@@ -1,4 +1,6 @@
 #include <PhatChat/Server/Client.hpp>
+#include <PhatChat/Core/OperationCode.hpp>
+#include <iostream>
 
 PhatChat::Server::Client::Client ( PhatChat::Server::ClientManager & clientManager ) :
     clientManager ( clientManager )
@@ -34,10 +36,12 @@ bool PhatChat::Server::Client::receive ( sf::Packet & packet )
 
 void PhatChat::Server::Client::handlePacket ( sf::Packet packet )
 {
-	unsigned char operationCode = PhatChat::OperationCode::UNKNOWN ;
+	unsigned char operationCodeValue = 0 ;
+	packet >> operationCodeValue ;
+	PhatChat::OperationCode operationCode = static_cast <PhatChat::OperationCode> ( operationCodeValue ) ;
 	
-	packet >> operationCode ;
-	
-	if ( operationCode >= PhatChat::OperationCode::UNKNOWN )
-		std::cout << "Operation code is unknown! Skip packet." << std::endl ;
+	if ( operationCode == PhatChat::OperationCode::PING )
+		;
+	else
+		std::cout << "Operation code is unknown! Skip ." << packet.getDataSize ( ) << " bytes." << std::endl ;
 }

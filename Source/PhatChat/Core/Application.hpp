@@ -22,7 +22,16 @@ namespace PhatChat
             Application ( PhatChat::Application && right ) = delete ;
             PhatChat::Application & operator = ( PhatChat::Application && right ) = delete ;
 
-            // pure virtual
+			// mutator for running
+            void setRunning ( bool running ) ;
+            // accessor for running
+            bool isRunning ( ) const ;
+
+
+            // pure virtual main function
 			virtual int main ( const std::vector <std::string> & arguments ) = 0 ;
+			
+		private :
+           	bool running = true ;
 	} ;
 }

@@ -3,7 +3,7 @@
 namespace PhatChat
 {
 	// operation codes of packets
-	enum class OperationCode
+	enum class OperationCode : unsigned char
 	{
 		PING = 0x0 ,
 		PONG = 0x1 ,

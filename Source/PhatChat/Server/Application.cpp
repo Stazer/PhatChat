@@ -26,15 +26,6 @@ const PhatChat::Server::ClientManager & PhatChat::Server::Application::getClient
     return this->clientManager ;
 }
 
-void PhatChat::Server::Application::setRunning ( bool running )
-{
-    this->running = running ;
-}
-bool PhatChat::Server::Application::isRunning ( ) const
-{
-    return this->running ;
-}
-
 int PhatChat::Server::Application::main ( const std::vector <std::string> & arguments )
 {
     // fetch port from command line parameters, use 20900 as default and start listening for
@@ -45,7 +36,7 @@ int PhatChat::Server::Application::main ( const std::vector <std::string> & argu
         std::cout << port << " is already in use!\n" ;
         return -1 ;
     }
-    std::cout << "listening on port " << port << "\n" ;
+    std::cout << "Listening on port " << port << "!\n" ;
 
     while ( this->isRunning ( ) )
     {
@@ -53,9 +44,4 @@ int PhatChat::Server::Application::main ( const std::vector <std::string> & argu
     }
 
 	return 0 ;
-}
-
-void PhatChat::Server::Application::stop ( )
-{
-    this->setRunning ( false ) ;
 }
