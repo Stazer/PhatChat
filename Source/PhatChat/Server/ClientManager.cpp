@@ -53,7 +53,7 @@ void PhatChat::Server::ClientManager::update ( )
 
             client->getSocket ( ).receive ( packet ) ;
             
-            std::cout << "received packet from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << std::endl ;
+            std::cout << "Received packet from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << "." << std::endl ;
         
         	client->handlePacket ( packet ) ;
         }
@@ -69,7 +69,7 @@ void PhatChat::Server::ClientManager::update ( )
             this->clients.push_back ( client ) ;
             this->selector.add ( client->getSocket ( ) ) ;
 
-            std::cout << "connection from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << std::endl ;
+            std::cout << "Connection from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << "." << std::endl ;
         }
     }
 }

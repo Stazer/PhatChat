@@ -34,5 +34,10 @@ bool PhatChat::Server::Client::receive ( sf::Packet & packet )
 
 void PhatChat::Server::Client::handlePacket ( sf::Packet packet )
 {
-	unsigned char operationCode = 0 ;
+	unsigned char operationCode = PhatChat::OperationCode::UNKNOWN ;
+	
+	packet >> operationCode ;
+	
+	if ( operationCode >= PhatChat::OperationCode::UNKNOWN )
+		std::cout << "Operation code is unknown! Skip packet." << std::endl ;
 }
