@@ -27,10 +27,10 @@ const sf::SocketSelector & PhatChat::Server::ClientManager::getSelector ( ) cons
     return this->selector ;
 }
 
-std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator PhatChat::Server::ClientManager::disconnect ( std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator client )
+void PhatChat::Server::ClientManager::disconnect ( std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator client )
 {
 	this->disconnect ( ** client ) ;
-	return this->clients.erase ( client ) ;
+	this->clients.erase ( client ) ;
 }
 void PhatChat::Server::ClientManager::disconnect ( PhatChat::Server::Client & client )
 {
@@ -52,22 +52,23 @@ void PhatChat::Server::ClientManager::update ( )
 
         return ;
     }
-    
+
 	// check if pings need to be sent
-    if ( this->pingClock.getElapsedTime ( ).asSeconds ( ) >= 2.5f )
-    {    
-    	std::cout << "Broadcast ping packet!" << std::endl ;
-    
+    if ( this->pingClock.getElapsedTime ( ).asSeconds ( ) >= 5.0f )
+    {
     	// build ping packet
     	sf::Packet packet ( PhatChat::PingPacket ( time ( nullptr ) ).encode ( ) ) ;
-    
+
     	// send packet to all clients
     	for ( auto client = this->clients.begin ( ) ; client != this->clients.end ( ) ; ++client )
-    	{    	
+    	{
     		if ( ( * client )->getSocket ( ).send ( packet ) != sf::Socket::Done )
-    			client = this->disconnect ( client ) ;
+    		{
+    			this->disconnect ( client ) ;
+    			break ;
+    		}
     	}
-    
+
     	this->pingClock.restart ( ) ;
     }
 
@@ -75,17 +76,20 @@ void PhatChat::Server::ClientManager::update ( )
   	if ( ! this->selector.wait ( sf::milliseconds ( 100 ) ) )
   		return ;
 
-	// check clients for any data and handle the packet if one was received
+	// check clients for any data and check for dead clients handle the packet if one was received
 	for ( auto client = this->clients.begin ( ) ; client != this->clients.end ( ) ; ++client )
     {
     	if ( this->selector.isReady ( ( * client )->getSocket ( ) ) )
     	{
     		sf::Packet packet ;
-    		
+
     		if ( ( * client )->getSocket ( ).receive ( packet ) == sf::Socket::Done )
     			( * client )->handlePacket ( packet ) ;
     		else
-    			client = this->disconnect ( client ) ;
+    		{
+                this->disconnect ( client ) ;
+                break ;
+            }
     	}
     }
 

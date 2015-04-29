@@ -41,7 +41,7 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
 	
 	while ( this->isRunning ( ) )
 	{
-		sf::sleep ( sf::seconds ( 0 )  ) ;
+		sf::sleep ( sf::seconds ( 0 ) ) ;
 	}
 	
     std::cout << "Connected to " << this->socket.getRemoteAddress ( ) << ":" << this->socket.getRemotePort ( ) << " closed!\n" ;

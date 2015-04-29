@@ -36,9 +36,9 @@ namespace PhatChat
                 sf::SocketSelector & getSelector ( ) ;
                 // const accesor for selector
                 const sf::SocketSelector & getSelector ( ) const ;
-                                
+
                 // disconnect a client
-                std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator disconnect ( std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator client ) ;
+                void disconnect ( std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator client ) ;
                 void disconnect ( PhatChat::Server::Client & client ) ;
 
                 // update the client manager
