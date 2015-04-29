@@ -1,5 +1,7 @@
+#include <PhatChat/Core/PingPacket.hpp>
 #include <PhatChat/Server/ClientManager.hpp>
 #include <PhatChat/Server/Application.hpp>
+#include <cstdlib>
 #include <iostream>
 
 PhatChat::Server::ClientManager::ClientManager ( PhatChat::Server::Application & server ) :
@@ -25,6 +27,17 @@ const sf::SocketSelector & PhatChat::Server::ClientManager::getSelector ( ) cons
     return this->selector ;
 }
 
+std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator PhatChat::Server::ClientManager::disconnect ( std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator client )
+{
+	this->disconnect ( ** client ) ;
+	return this->clients.erase ( client ) ;
+}
+void PhatChat::Server::ClientManager::disconnect ( PhatChat::Server::Client & client )
+{
+	this->selector.remove ( client.getSocket ( ) ) ;
+	std::cout << "Connection from " << client.getSocket ( ).getRemoteAddress ( ) << ":" << client.getSocket ( ).getRemotePort ( ) << " closed!" << std::endl ;
+}
+
 // update the client manager
 void PhatChat::Server::ClientManager::update ( )
 {
@@ -39,24 +52,41 @@ void PhatChat::Server::ClientManager::update ( )
 
         return ;
     }
+    
+	// check if pings need to be sent
+    if ( this->pingClock.getElapsedTime ( ).asSeconds ( ) >= 2.5f )
+    {    
+    	std::cout << "Broadcast ping packet!" << std::endl ;
+    
+    	// build ping packet
+    	sf::Packet packet ( PhatChat::PingPacket ( time ( nullptr ) ).encode ( ) ) ;
+    
+    	// send packet to all clients
+    	for ( auto client = this->clients.begin ( ) ; client != this->clients.end ( ) ; ++client )
+    	{    	
+    		if ( ( * client )->getSocket ( ).send ( packet ) != sf::Socket::Done )
+    			client = this->disconnect ( client ) ;
+    	}
+    
+    	this->pingClock.restart ( ) ;
+    }
 
-    // wait for data
-    if ( this->selector.wait ( ) != sf::Socket::Done )
-        return ;
+    // wait for data 100ms
+  	if ( ! this->selector.wait ( sf::milliseconds ( 100 ) ) )
+  		return ;
 
-    // check clients for any data
-    for ( auto client : this->clients )
+	// check clients for any data and handle the packet if one was received
+	for ( auto client = this->clients.begin ( ) ; client != this->clients.end ( ) ; ++client )
     {
-        if ( this->selector.isReady ( client->getSocket ( ) ) )
-        {
-        	sf::Packet packet ;
-
-            client->getSocket ( ).receive ( packet ) ;
-            
-            std::cout << "Received packet from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << "." << std::endl ;
-        
-        	client->handlePacket ( packet ) ;
-        }
+    	if ( this->selector.isReady ( ( * client )->getSocket ( ) ) )
+    	{
+    		sf::Packet packet ;
+    		
+    		if ( ( * client )->getSocket ( ).receive ( packet ) == sf::Socket::Done )
+    			( * client )->handlePacket ( packet ) ;
+    		else
+    			client = this->disconnect ( client ) ;
+    	}
     }
 
     // check server socket for any data
@@ -69,7 +99,7 @@ void PhatChat::Server::ClientManager::update ( )
             this->clients.push_back ( client ) ;
             this->selector.add ( client->getSocket ( ) ) ;
 
-            std::cout << "Connection from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << "." << std::endl ;
+            std::cout << "Connection from " << client->getSocket ( ).getRemoteAddress ( ) << ":" << client->getSocket ( ).getRemotePort ( ) << " opened!" << std::endl ;
         }
     }
 }

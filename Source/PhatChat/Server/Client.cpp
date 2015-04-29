@@ -1,5 +1,7 @@
 #include <PhatChat/Server/Client.hpp>
 #include <PhatChat/Core/OperationCode.hpp>
+#include <PhatChat/Core/PingPacket.hpp>
+#include <PhatChat/Core/PongPacket.hpp>
 #include <iostream>
 
 PhatChat::Server::Client::Client ( PhatChat::Server::ClientManager & clientManager ) :
@@ -41,7 +43,13 @@ void PhatChat::Server::Client::handlePacket ( sf::Packet packet )
 	PhatChat::OperationCode operationCode = static_cast <PhatChat::OperationCode> ( operationCodeValue ) ;
 	
 	if ( operationCode == PhatChat::OperationCode::PING )
-		;
+	{
+	}
+	else if ( operationCode == PhatChat::OperationCode::PONG )
+	{
+		PhatChat::PongPacket pongPacket = PhatChat::PongPacket::decode ( packet ) ;
+		std::cout << "Received pong packet with value " << pongPacket.getValue ( ) << "!" << std::endl ;
+	}
 	else
-		std::cout << "Operation code is unknown! Skip ." << packet.getDataSize ( ) << " bytes." << std::endl ;
+		std::cout << "Operation code is unknown! Skip " << packet.getDataSize ( ) << " bytes." << std::endl ;
 }

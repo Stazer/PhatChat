@@ -22,12 +22,18 @@ namespace PhatChat
 				// main function
 				int main ( const std::vector <std::string> & arguments ) ;
 				
+				// handles packet
+                // NOTE: keep the pass by value behaviour, since PhatChat::Server::Client::handlePacket WILL modify the passed object
+				void handlePacket ( sf::Packet packet ) ;
+				
 			private :
 				sf::TcpSocket socket ;
 			
 				sf::Thread receiveThreadHandle ;
 				
 				void receiveThreadFunction ( ) ;
+				
+				sf::Clock pingClock ;
 		} ;
 	}
 }

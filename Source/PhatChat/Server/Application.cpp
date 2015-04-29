@@ -28,7 +28,7 @@ const PhatChat::Server::ClientManager & PhatChat::Server::Application::getClient
 
 int PhatChat::Server::Application::main ( const std::vector <std::string> & arguments )
 {
-    // fetch port from command line parameters, use 20900 as default and start listening for
+    // fetch port from command line arguments, use 20900 as default and start listening for
     // data on the socket
     const unsigned short port = arguments.size ( ) > 1 ? std::atoi ( arguments [ 1 ].c_str ( ) ) : PhatChat::defaultPort ;
     if ( this->socket.listen ( port ) != sf::Socket::Done )
