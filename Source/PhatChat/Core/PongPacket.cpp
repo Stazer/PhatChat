@@ -23,6 +23,8 @@ sf::Packet PhatChat::PongPacket::encode ( bool operationCode )
 		packet << static_cast <unsigned char> ( PhatChat::OperationCode::PONG ) ;
 		
 	packet << this->value ;
+	
+	return packet ;
 }
 PhatChat::PongPacket PhatChat::PongPacket::decode ( sf::Packet packet , bool operationCode )
 {
