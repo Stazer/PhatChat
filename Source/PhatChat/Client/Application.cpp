@@ -1,5 +1,6 @@
 #include <PhatChat/Client/Application.hpp>
 #include <PhatChat/Client/ConnectionWindow.hpp>
+#include <PhatChat/Client/Message.hpp>
 #include <PhatChat/Core/OperationCode.hpp>
 #include <PhatChat/Core/DefaultPort.hpp>
 #include <PhatChat/Core/PongPacket.hpp>
@@ -55,7 +56,7 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
         if ( this->socket.connect ( hostAddress , port ) != sf::Socket::Done )
         {
             std::cout << "Cannot connect to " << hostAddress << ":" << port << "!\n" ;
-            fl_alert ( ( "Cannot connect to " + hostAddress + ":" + std::to_string ( port ) + "!" ).c_str ( ) ) ;
+            PhatChat::Client::message ( "Error" , ( "Cannot connect to " + hostAddress + ":" + std::to_string ( port ) + "!" ).c_str ( ) ) ;
         }
         else
         {
