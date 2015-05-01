@@ -13,15 +13,26 @@ namespace PhatChat
 		class ConnectionWindow
 		{
 			public :
-				ConnectionWindow ( const std::string & username , const std::string & socketAddress , unsigned short port ) ;
+				ConnectionWindow ( ) ;
+
+				void hide ( ) ;
+				void show ( ) ;
+
+				void reset ( ) ;
 
                 bool isConnectPushed ( ) const ;
 
-				int main ( ) ;
-
+                void setUsername ( const std::string & username ) ;
 				std::string getUsername ( ) const ;
+
+				void setHostAddress ( const std::string & hostAddress ) ;
 				std::string getHostAddress ( ) const ;
+
+                void setPort ( unsigned short port ) ;
 				unsigned short getPort ( ) const ;
+
+                void setSocketAddress ( const std::string & socketAddress ) ;
+                std::string getSocketAddress ( ) const ;
 
 			private :
                 static void onConnectPushed ( Fl_Widget * widget , void * data ) ;
