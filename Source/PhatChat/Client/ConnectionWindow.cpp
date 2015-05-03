@@ -64,7 +64,7 @@ void PhatChat::Client::ConnectionWindow::setPort ( unsigned short port )
 unsigned short PhatChat::Client::ConnectionWindow::getPort ( ) const
 {
 	std::string content = this->socketAddress.value ( ) ;
-	return std::atoi ( content.substr ( content.find ( ':' ) + 1 ).c_str ( ) ) ;
+	return atoi ( content.substr ( content.find ( ':' ) + 1 ).c_str ( ) ) ;
 }
 
 void PhatChat::Client::ConnectionWindow::setSocketAddress ( const std::string & socketAddress )

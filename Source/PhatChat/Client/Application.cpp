@@ -4,6 +4,7 @@
 #include <PhatChat/Core/DefaultPort.hpp>
 #include <PhatChat/Core/PongPacket.hpp>
 #include <PhatChat/Core/PingPacket.hpp>
+#include <PhatChat/Client/ChatWindow.hpp>
 #include <iostream>
 
 PhatChat::Client::Application::Application ( ) :
@@ -14,7 +15,10 @@ PhatChat::Client::Application::Application ( ) :
 int PhatChat::Client::Application::main ( const std::vector <std::string> & arguments )
 {
 	// change FLTK design
-	Fl::scheme ( "gtk+" ) ;
+	//Fl::scheme ( "gtk+" ) ;
+	ChatWindow::ChatWindow FirstAttempt; 
+	return 0; 
+
 
 	// fetch hostname and port from command line arguments only if all command line arguments were given, use 20900 as default port and
 	// 127.0.0.1 as default hostname and connect to the server
