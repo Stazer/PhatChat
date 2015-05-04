@@ -20,7 +20,7 @@ sf::Packet PhatChat::MessagePacket::encode ( bool operationCode )
 	sf::Packet packet ;
 
 	if ( operationCode )
-		packet << static_cast <unsigned char> ( PhatChat::OperationCode::REQUEST_USERNAME ) ;
+		packet << static_cast <unsigned char> ( PhatChat::OperationCode::MESSAGE ) ;
 		
 	packet << this->message ;
 	
