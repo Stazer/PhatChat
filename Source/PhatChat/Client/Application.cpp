@@ -4,6 +4,7 @@
 #include <PhatChat/Core/DefaultPort.hpp>
 #include <PhatChat/Core/PongPacket.hpp>
 #include <PhatChat/Core/PingPacket.hpp>
+#include <PhatChat/Client/ChatWindow.hpp>
 #include <iostream>
 
 
@@ -32,7 +33,10 @@ PhatChat::Client::Application::Application ( ) :
 int PhatChat::Client::Application::main ( const std::vector <std::string> & arguments )
 {
 	// change FLTK design
-	Fl::scheme ( "gtk+" ) ;
+	//Fl::scheme ( "gtk+" ) ;
+	ChatWindow::ChatWindow FirstAttempt; 
+	return 0; 
+
 
 Fl_Window	*window = new Fl_Window(0,0, 800, 800);
     Fl_Tile		*phatTile = new Fl_Tile(0, 0, 800, 800);
