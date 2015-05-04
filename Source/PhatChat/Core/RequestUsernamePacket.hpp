@@ -10,7 +10,7 @@ namespace PhatChat
 	{
 		public :
 			// constructor for setting the username
-			RequestUsernamePacket ( const std::string & value = 0 ) ;
+			RequestUsernamePacket ( const std::string & value = "" ) ;
 
 			// mutator for username
 			void setUsername ( const std::string & username ) ;
