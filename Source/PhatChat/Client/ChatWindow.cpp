@@ -1,44 +1,55 @@
-//#include <PhatChat/Client/ChatWindow.hpp> 
+#include <PhatChat/Client/ChatWindow.hpp>
 
-ChatWindow::ChatWindow()
-			:phatwindow(10, 10, 800, 800, "PhatChat"), phatTile(10, 10 ,800, 800),
-			phatInput (10,510,700,300), phatDisp(10, 10, 800, 500, "Display"),
-			phatReturn( 710, 510, 100, 300, "Enter")
+PhatChat::Client::ChatWindow::ChatWindow ( ) :
+	window ( 800 , 600 ) ,
+	log ( 10 , 10 , 780 , 540 ) ,
+	message ( 10 , 560 , 670 , 30 ) ,
+	send ( 690 , 560 , 100 , 30 , "Send" )
 {
+	this->window.label ( "PhatChat" ) ;
 
-	phatwindow.end();
-    phatwindow.show();
-    return Fl::run ( ); 
+	this->send.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
 
-	//foo
+	this->window.end ( ) ;
 }
 
-
-bool ChatWindow::isSendPushed(){
-    
-    bool resultOfSend = sendPushed;
-    return resultOfSend;
-
+void PhatChat::Client::ChatWindow::hide ( )
+{
+	this->window.hide ( ) ;
+}
+void PhatChat::Client::ChatWindow::show ( )
+{
+	this->window.show ( ) ;
 }
 
-
-
-string ChatWindow::getMessage(){
-    
-    std::string chatMessage = phatInput.value();
-    return chatMessage;
-    
-    
+void PhatChat::Client::ChatWindow::reset ( )
+{
+    this->message.value ( "" ) ;
+	this->sendPushed = false ;
 }
 
+bool PhatChat::Client::ChatWindow::isSendPushed ( ) const
+{
+	bool pushed = sendPushed ;
+	this->sendPushed = false ;
 
-void ChatWindow::addMessage(const std::string& phatMessage){
-    
-    tbuff = text(phatMessage);
-    phatDisp = buffer(tbuff);
-    
-    
+	return pushed ;
 }
 
+std::string PhatChat::Client::ChatWindow::getMessage ( ) const
+{
+	std::string message = this->message.value ( ) ;
+	this->message.value ( "" ) ;
 
+	return message ;
+}
 
+void PhatChat::Client::ChatWindow::addMessage(const std::string& message )
+{
+    this->log.insert ( message.c_str ( ) , this->log.size ( ) ) ;
+}
+
+void PhatChat::Client::ChatWindow::onSendPushed ( Fl_Widget * widget , void * data )
+{
+	reinterpret_cast <PhatChat::Client::ChatWindow *> ( data )->sendPushed = true ;
+}

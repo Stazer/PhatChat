@@ -13,28 +13,43 @@ namespace PhatChat
 		class ConnectionWindow
 		{
 			public :
+				// default constructor
 				ConnectionWindow ( ) ;
 
+				// hide window
 				void hide ( ) ;
+				
+				// show window
 				void show ( ) ;
 
+				// reset fields
 				void reset ( ) ;
 
+				// accessor for connectPushed
                 bool isConnectPushed ( ) const ;
 
+				// mutator for username
                 void setUsername ( const std::string & username ) ;
+				// accessor for username
 				std::string getUsername ( ) const ;
 
+				// mutator for hostAddress
 				void setHostAddress ( const std::string & hostAddress ) ;
+				// accessorcfor hostAddress
 				std::string getHostAddress ( ) const ;
 
+				// mutator for port
                 void setPort ( unsigned short port ) ;
+                // accessor for port
 				unsigned short getPort ( ) const ;
 
+				// mutator for socketAddress
                 void setSocketAddress ( const std::string & socketAddress ) ;
+                // accessor for socketAddress
                 std::string getSocketAddress ( ) const ;
 
 			private :
+				// callback
                 static void onConnectPushed ( Fl_Widget * widget , void * data ) ;
 
 				Fl_Window window ;

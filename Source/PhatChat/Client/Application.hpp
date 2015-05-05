@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 #include <PhatChat/Core/Application.hpp>
 #include <PhatChat/Client/ConnectionWindow.hpp>
+#include <PhatChat/Client/ChatWindow.hpp>
 
 namespace PhatChat
 {
@@ -24,6 +25,7 @@ namespace PhatChat
 
 			private :
                 PhatChat::Client::ConnectionWindow connectionWindow ;
+                PhatChat::Client::ChatWindow chatWindow ;
 
 				sf::TcpSocket socket ;
 

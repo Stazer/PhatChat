@@ -13,64 +13,49 @@
 #include <FL/Fl_Menu.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Text_Editor.H>
-//#include <FL/Fl_Pack.H>
 #include <FL/Fl_Tile.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Text_Display.H>
+#include <FL/Fl_Multiline_Output.H>
 #include <string>
 
+namespace PhatChat
+{
+	namespace Client
+	{
+		class ChatWindow
+		{
+			public:
+				// default constructor
+				ChatWindow ( ) ;
 
-class ChatWindow{
-	
-	public:
-    
-		ChatWindow();
-        bool isSendPushed();
-        Fl_Window phatwindow;
-        Fl_Tile phatTile;
-        Fl_Input phatInput; 
-        Fl_Text_Display phatDisp; 
-        Fl_Return_Button phatReturn; 
-        //this boolean  method makes a copy of sendPushed value
-        //then it set sendPushed to false
-        //return the copy to the sender's output window
-    
-        std::string getMessage();
-        //creates a copy of the text boxs value
-        //sets the text box value to ""
-        //returns the copy
-    
-        void addMessage(const std::string&);
-    
-        //username is concatenated to the input string
-    
-        //get ride of sidebar
-        //reach Justus over email
-    
-    
-	private:
-    
-       
-    
+				// hide the window
+				void hide ( ) ;
 
-        bool sendPushed = false ;
-        Fl_Text_Buffer tbuff;
-    
-        //call back for the send button
-        //boolean value: sendPushed();
-		
-		
-		
-};
+				// show the window
+				void show ( ) ;
 
+				// resets all values
+				void reset ( ) ;
 
+				// accessor for sendPushed
+				bool isSendPushed ( ) const ;
 
-#include "PhatChat/Client/Application.cpp"
+				// accessor for the message
+				std::string getMessage ( ) const ;
 
+				// adds message to the gui
+				void addMessage ( const std::string & message ) ;
 
+			private :
+				Fl_Window window ;
+				Fl_Multiline_Output log ;
+				mutable Fl_Input message ;
+				Fl_Button send ;
 
+				mutable bool sendPushed = false ;
 
-
-
-
-    
+				static void onSendPushed ( Fl_Widget * widget , void * data ) ;
+		};
+	}
+}

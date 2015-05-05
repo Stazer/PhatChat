@@ -11,7 +11,6 @@ PhatChat::Client::ConnectionWindow::ConnectionWindow ( ) :
 	this->connect.callback ( PhatChat::Client::ConnectionWindow::onConnectPushed , this ) ;
 
 	this->window.end ( ) ;
-	this->window.show ( ) ;
 
 	this->window.hide ( ) ;
 }
