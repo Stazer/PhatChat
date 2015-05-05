@@ -8,6 +8,8 @@ PhatChat::Client::ChatWindow::ChatWindow ( ) :
 {
 	this->window.label ( "PhatChat" ) ;
 
+	this->log.buffer ( this->buffer ) ;
+
 	this->send.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
 
 	this->window.end ( ) ;
@@ -22,6 +24,12 @@ void PhatChat::Client::ChatWindow::show ( )
 	this->window.show ( ) ;
 }
 
+// accesor for open
+bool PhatChat::Client::ChatWindow::isOpen ( ) const
+{
+    return this->window.visible ( ) ;
+}
+
 void PhatChat::Client::ChatWindow::reset ( )
 {
     this->message.value ( "" ) ;
@@ -30,26 +38,44 @@ void PhatChat::Client::ChatWindow::reset ( )
 
 bool PhatChat::Client::ChatWindow::isSendPushed ( ) const
 {
+    this->mutex.lock ( ) ;
+
 	bool pushed = sendPushed ;
 	this->sendPushed = false ;
+
+    this->mutex.unlock ( ) ;
 
 	return pushed ;
 }
 
 std::string PhatChat::Client::ChatWindow::getMessage ( ) const
 {
-	std::string message = this->message.value ( ) ;
+    this->mutex.lock ( ) ;
+
+    std::string message = this->message.value ( ) ;
 	this->message.value ( "" ) ;
+
+    this->mutex.unlock ( ) ;
 
 	return message ;
 }
 
-void PhatChat::Client::ChatWindow::addMessage(const std::string& message )
+void PhatChat::Client::ChatWindow::addMessage ( const std::string& message )
 {
-    this->log.insert ( message.c_str ( ) , this->log.size ( ) ) ;
+    this->mutex.lock ( ) ;
+
+    this->log.insert ( ( message + "\n" ).c_str ( ) ) ;
+
+    this->mutex.unlock ( ) ;
 }
 
 void PhatChat::Client::ChatWindow::onSendPushed ( Fl_Widget * widget , void * data )
 {
-	reinterpret_cast <PhatChat::Client::ChatWindow *> ( data )->sendPushed = true ;
+    PhatChat::Client::ChatWindow * chatWindow = reinterpret_cast <PhatChat::Client::ChatWindow *> ( data ) ;
+
+    chatWindow->mutex.lock ( ) ;
+
+	chatWindow->sendPushed = true ;
+
+    chatWindow->mutex.unlock ( ) ;
 }

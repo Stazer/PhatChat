@@ -27,6 +27,8 @@ namespace PhatChat
                 PhatChat::Client::ConnectionWindow connectionWindow ;
                 PhatChat::Client::ChatWindow chatWindow ;
 
+                std::string username ;
+
 				sf::TcpSocket socket ;
 
 				sf::Thread receiveThreadHandle ;

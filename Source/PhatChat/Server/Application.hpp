@@ -15,6 +15,11 @@ namespace PhatChat
                 // default constructor
                 Application ( ) ;
 
+                // mutator for running
+                void setRunning ( bool running ) ;
+                // accessor for running
+                bool isRunning ( ) const ;
+
                 // accessor for socket
                 sf::TcpListener & getSocket ( ) ;
                 // const accessor for socket
@@ -24,11 +29,13 @@ namespace PhatChat
                 PhatChat::Server::ClientManager & getClientManager ( ) ;
                 // const accessor for clientManager
                 const PhatChat::Server::ClientManager & getClientManager ( ) const ;
-                
+
                 // main function
 				int main ( const std::vector <std::string> & arguments ) ;
 
             private :
+                bool running = true ;
+
                 sf::TcpListener socket ;
 
                 PhatChat::Server::ClientManager clientManager ;

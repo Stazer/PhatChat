@@ -5,6 +5,8 @@
 #include <PhatChat/Core/PongPacket.hpp>
 #include <PhatChat/Core/PingPacket.hpp>
 #include <PhatChat/Core/MessagePacket.hpp>
+#include <PhatChat/Core/RequestUsernamePacket.hpp>
+#include <PhatChat/Core/ResponseUsernamePacket.hpp>
 #include <iostream>
 
 PhatChat::Client::Application::Application ( ) :
@@ -35,7 +37,10 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
 
             this->connectionWindow.show ( ) ;
 
-            while ( Fl::wait ( ) && ! this->connectionWindow.isConnectPushed ( ) ) ;
+            while ( this->connectionWindow.isOpen ( ) && ! this->connectionWindow.isConnectPushed ( ) )
+            {
+                Fl::wait ( ) ;
+            }
 
             this->connectionWindow.hide ( ) ;
 
@@ -57,13 +62,20 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
         {
             std::cout << "Connection to " << this->socket.getRemoteAddress ( ) << ":" << this->socket.getRemotePort ( ) << " opened!\n" ;
 
+            // send username request
+            this->username = this->connectionWindow.getUsername ( ) ;
+            sf::Packet packet = PhatChat::RequestUsernamePacket ( this->username ).encode ( ) ;
+            this->socket.send ( packet ) ;
+
             // launch receive thread
-            this->setRunning ( true ) ;
+            this->chatWindow.reset ( ) ;
             this->receiveThreadHandle.launch ( ) ;
             this->chatWindow.show ( ) ;
 
-            while ( Fl::wait ( ) )
+            while ( this->chatWindow.isOpen ( ) )
             {
+                Fl::wait ( ) ;
+
             	if ( this->chatWindow.isSendPushed ( ) )
             	{
             		std::string message = this->chatWindow.getMessage ( ) ;
@@ -77,26 +89,29 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
             }
 
             this->socket.disconnect ( ) ;
+            this->chatWindow.hide ( ) ;
+            this->receiveThreadHandle.terminate ( ) ;
 
             std::cout << "Connection to " << this->socket.getRemoteAddress ( ) << ":" << this->socket.getRemotePort ( ) << " closed!\n" ;
         }
     }
-
-    this->setRunning ( false ) ;
 
 	return 0 ;
 }
 
 void PhatChat::Client::Application::receiveThreadFunction ( )
 {
-	while ( this->isRunning ( ) )
+	while ( true )
 	{
 		// fetch packet
 		sf::Packet packet ;
 		if ( this->socket.receive ( packet ) == sf::Socket::Done )
-		{
         	this->handlePacket ( packet ) ;
-		}
+		else
+        {
+            this->chatWindow.addMessage ( "Connection to " + this->socket.getRemoteAddress ( ).toString ( ) + ":" + std::to_string ( this->socket.getRemotePort ( ) ) + " closed!\n" ) ;
+            break ;
+        }
 	}
 }
 
@@ -114,12 +129,22 @@ void PhatChat::Client::Application::handlePacket ( sf::Packet packet )
 
 		sf::Packet newPacket ( PhatChat::PongPacket ( pingPacket.getValue ( ) ).encode ( ) ) ;
 
-		if ( this->socket.send ( newPacket ) != sf::Socket::Done )
-			this->setRunning ( false ) ;
+		this->socket.send ( newPacket ) ;
 	}
+	else if ( operationCode == PhatChat::OperationCode::PONG )
+	{
+		PhatChat::PongPacket pongPacket = PhatChat::PongPacket::decode ( packet ) ;
+		std::cout << "Received pong packet with value " << pongPacket.getValue ( ) << "!" << std::endl ;
+	}
+	else if ( operationCode == PhatChat::OperationCode::RESPONSE_USERNAME )
+	{
+		PhatChat::ResponseUsernamePacket responseUsenamePacket = PhatChat::ResponseUsernamePacket::decode ( packet ) ;
+		this->username = responseUsenamePacket.getUsername ( ) ;
+    }
 	else if ( operationCode == PhatChat::OperationCode::MESSAGE )
 	{
 		PhatChat::MessagePacket messagePacket ( PhatChat::MessagePacket::decode ( packet ) ) ;
+        std::cout << "Received message from " << username << " saying \"" << messagePacket.getMessage ( ) << "\"!" << std::endl ;
 
 		this->chatWindow.addMessage ( messagePacket.getUsername ( ) + "> " + messagePacket.getMessage ( ) ) ;
 	}

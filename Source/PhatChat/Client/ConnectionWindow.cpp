@@ -15,6 +15,11 @@ PhatChat::Client::ConnectionWindow::ConnectionWindow ( ) :
 	this->window.hide ( ) ;
 }
 
+bool PhatChat::Client::ConnectionWindow::isOpen ( ) const
+{
+    return this->window.visible ( ) ;
+}
+
 void PhatChat::Client::ConnectionWindow::hide ( )
 {
     this->window.hide ( ) ;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
@@ -35,6 +36,9 @@ namespace PhatChat
 				// show the window
 				void show ( ) ;
 
+				// accesor for open
+				bool isOpen ( ) const ;
+
 				// resets all values
 				void reset ( ) ;
 
@@ -48,8 +52,11 @@ namespace PhatChat
 				void addMessage ( const std::string & message ) ;
 
 			private :
+                mutable sf::Mutex mutex ;
+
 				Fl_Window window ;
-				Fl_Multiline_Output log ;
+				Fl_Text_Buffer buffer ;
+				Fl_Text_Display log ;
 				mutable Fl_Input message ;
 				Fl_Button send ;
 

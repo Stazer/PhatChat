@@ -97,8 +97,8 @@ void PhatChat::Server::ClientManager::update ( )
     	this->pingClock.restart ( ) ;
     }
 
-    // wait for data 100ms
-  	if ( ! this->selector.wait ( sf::milliseconds ( 100 ) ) )
+    // wait for data 10ms
+  	if ( ! this->selector.wait ( ) )
   		return ;
 
 	// check clients for any data and check for dead clients handle the packet if one was received

@@ -4,6 +4,8 @@
 #include <PhatChat/Core/PingPacket.hpp>
 #include <PhatChat/Core/PongPacket.hpp>
 #include <PhatChat/Core/MessagePacket.hpp>
+#include <PhatChat/Core/RequestUsernamePacket.hpp>
+#include <PhatChat/Core/ResponseUsernamePacket.hpp>
 #include <iostream>
 
 PhatChat::Server::Client::Client ( PhatChat::Server::ClientManager & clientManager ) :
@@ -18,6 +20,15 @@ PhatChat::Server::ClientManager & PhatChat::Server::Client::getClientManager ( )
 const PhatChat::Server::ClientManager & PhatChat::Server::Client::getClientManager ( ) const
 {
     return this->clientManager ;
+}
+
+void PhatChat::Server::Client::setUsername ( const std::string & username )
+{
+    this->username = username ;
+}
+const std::string & PhatChat::Server::Client::getUsername ( ) const
+{
+    return this->username ;
 }
 
 sf::TcpSocket & PhatChat::Server::Client::getSocket ( )
@@ -58,12 +69,18 @@ void PhatChat::Server::Client::handlePacket ( sf::Packet packet )
 		PhatChat::PongPacket pongPacket = PhatChat::PongPacket::decode ( packet ) ;
 		std::cout << "Received pong packet with value " << pongPacket.getValue ( ) << "!" << std::endl ;
 	}
+	else if ( operationCode == PhatChat::OperationCode::REQUEST_USERNAME )
+	{
+        PhatChat::RequestUsernamePacket requestUsernamePacket = PhatChat::RequestUsernamePacket::decode ( packet ) ;
+        this->setUsername ( requestUsernamePacket.getUsername ( ) ) ;
+	}
 	else if ( operationCode == PhatChat::OperationCode::MESSAGE )
 	{
         PhatChat::MessagePacket messagePacket = PhatChat::MessagePacket::decode ( packet ) ;
-        std::cout << "Received message from " << "NULL" << " saying \"" << messagePacket.getMessage ( ) << "\"!" << std::endl ;
+        std::string username = this->username.empty ( ) ? messagePacket.getUsername ( ) : this->username ;
+        std::cout << "Received message from " << username << " saying \"" << messagePacket.getMessage ( ) << "\"!" << std::endl ;
 
-        messagePacket.setUsername ( "TEST" ) ;
+        messagePacket.setUsername ( username ) ;
 
         for ( auto client : this->clientManager )
         {

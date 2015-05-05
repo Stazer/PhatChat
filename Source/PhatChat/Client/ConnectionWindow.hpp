@@ -16,9 +16,12 @@ namespace PhatChat
 				// default constructor
 				ConnectionWindow ( ) ;
 
+				// accessor for open
+				bool isOpen ( ) const ;
+
 				// hide window
 				void hide ( ) ;
-				
+
 				// show window
 				void show ( ) ;
 

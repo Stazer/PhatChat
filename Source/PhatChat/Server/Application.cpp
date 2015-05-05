@@ -8,6 +8,15 @@ PhatChat::Server::Application::Application ( ) :
 {
 }
 
+void PhatChat::Application::setRunning ( bool running )
+{
+    this->running = running ;
+}
+bool PhatChat::Application::isRunning ( ) const
+{
+    return this->running ;
+}
+
 sf::TcpListener & PhatChat::Server::Application::getSocket ( )
 {
     return this->socket ;
