@@ -9,6 +9,31 @@ PhatChat::Server::ClientManager::ClientManager ( PhatChat::Server::Application &
 {
 }
 
+PhatChat::Server::ClientManager::iterator PhatChat::Server::ClientManager::begin ( )
+{
+    return this->clients.begin ( ) ;
+}
+PhatChat::Server::ClientManager::const_iterator PhatChat::Server::ClientManager::begin ( ) const
+{
+    return this->clients.begin ( ) ;
+}
+PhatChat::Server::ClientManager::const_iterator PhatChat::Server::ClientManager::cbegin ( ) const
+{
+    return this->clients.cbegin ( ) ;
+}
+PhatChat::Server::ClientManager::iterator PhatChat::Server::ClientManager::end ( )
+{
+    return this->clients.end ( ) ;
+}
+PhatChat::Server::ClientManager::const_iterator PhatChat::Server::ClientManager::end ( ) const
+{
+    return this->clients.end ( ) ;
+}
+PhatChat::Server::ClientManager::const_iterator PhatChat::Server::ClientManager::cend  ( ) const
+{
+    return this->clients.cend ( ) ;
+}
+
 PhatChat::Server::Application & PhatChat::Server::ClientManager::getServer ( )
 {
     return this->server ;

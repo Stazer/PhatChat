@@ -71,7 +71,7 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
             		if ( message.empty ( ) )
                         continue ;
 
-            		sf::Packet packet = PhatChat::MessagePacket ( message ).encode ( ) ;
+            		sf::Packet packet = PhatChat::MessagePacket ( "" , message ).encode ( ) ;
             		this->socket.send ( packet ) ;
             	}
             }

@@ -16,6 +16,9 @@ namespace PhatChat
         class ClientManager
         {
             public :
+                using iterator = std::vector <std::shared_ptr <PhatChat::Server::Client>>::iterator ;
+                using const_iterator = std::vector <std::shared_ptr <PhatChat::Server::Client>>::const_iterator ;
+
                 // constructor
                 ClientManager ( PhatChat::Server::Application & server ) ;
 
@@ -26,6 +29,15 @@ namespace PhatChat
                 // prevent moving
                 ClientManager ( PhatChat::Server::ClientManager && right ) = delete ;
                 PhatChat::Server::ClientManager & operator = ( PhatChat::Server::ClientManager && right ) = delete ;
+
+                // iterator methodss
+                iterator begin ( ) ;
+                const_iterator begin ( ) const ;
+                const_iterator cbegin ( ) const ;
+                iterator end ( ) ;
+                const_iterator end ( ) const ;
+                const_iterator cend  ( ) const ;
+
 
                 // accessor for server
                 PhatChat::Server::Application & getServer ( ) ;
