@@ -10,13 +10,17 @@ namespace PhatChat
 	{
 		public :
 			// constructor for setting the message
-			MessagePacket ( const std::string & message = "" ) ;
+			MessagePacket ( const std::string & username = "" , const std::string & message = "" ) ;
 
 			// mutator for message
 			void setMessage ( const std::string & message ) ;
-
 			// accessor for message
 			const std::string & getMessage ( ) const ;
+
+			// mutator for message
+			void setUsername ( const std::string & username ) ;
+			// accessor for message
+			const std::string & getUsername ( ) const ;
 
 			// encodes the data of MessagePacket to sf::Packet
 			// if operationCode is enabled the method will encode the operation code as well
@@ -28,5 +32,6 @@ namespace PhatChat
 
 		private :
 			std::string message ;
+			std::string username ;
 	} ;
 }
