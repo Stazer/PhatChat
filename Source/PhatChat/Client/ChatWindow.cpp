@@ -38,44 +38,28 @@ void PhatChat::Client::ChatWindow::reset ( )
 
 bool PhatChat::Client::ChatWindow::isSendPushed ( ) const
 {
-    this->mutex.lock ( ) ;
-
 	bool pushed = sendPushed ;
 	this->sendPushed = false ;
-
-    this->mutex.unlock ( ) ;
 
 	return pushed ;
 }
 
 std::string PhatChat::Client::ChatWindow::getMessage ( ) const
 {
-    this->mutex.lock ( ) ;
-
     std::string message = this->message.value ( ) ;
 	this->message.value ( "" ) ;
-
-    this->mutex.unlock ( ) ;
 
 	return message ;
 }
 
 void PhatChat::Client::ChatWindow::addMessage ( const std::string& message )
 {
-    this->mutex.lock ( ) ;
-
     this->log.insert ( ( message + "\n" ).c_str ( ) ) ;
-
-    this->mutex.unlock ( ) ;
 }
 
 void PhatChat::Client::ChatWindow::onSendPushed ( Fl_Widget * widget , void * data )
 {
     PhatChat::Client::ChatWindow * chatWindow = reinterpret_cast <PhatChat::Client::ChatWindow *> ( data ) ;
 
-    chatWindow->mutex.lock ( ) ;
-
 	chatWindow->sendPushed = true ;
-
-    chatWindow->mutex.unlock ( ) ;
 }

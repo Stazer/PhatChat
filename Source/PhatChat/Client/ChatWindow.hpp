@@ -52,8 +52,6 @@ namespace PhatChat
 				void addMessage ( const std::string & message ) ;
 
 			private :
-                mutable sf::Mutex mutex ;
-
 				Fl_Window window ;
 				Fl_Text_Buffer buffer ;
 				Fl_Text_Display log ;

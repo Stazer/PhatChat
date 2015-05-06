@@ -19,6 +19,9 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
 	// change FLTK design
 	Fl::scheme ( "gtk+" ) ;
 
+	// enable multihreading support
+	Fl::lock ( ) ;
+
 	// fetch hostname and port from command line arguments only if all command line arguments were given, use 20900 as default port and
 	// 127.0.0.1 as default hostname and connect to the server
 	unsigned short port = arguments.size ( ) > 3 ? std::atoi ( arguments [ 3 ].c_str ( ) ) : PhatChat::defaultPort ;
