@@ -8,11 +8,11 @@ PhatChat::Server::Application::Application ( ) :
 {
 }
 
-void PhatChat::Application::setRunning ( bool running )
+void PhatChat::Server::Application::setRunning ( bool running )
 {
     this->running = running ;
 }
-bool PhatChat::Application::isRunning ( ) const
+bool PhatChat::Server::Application::isRunning ( ) const
 {
     return this->running ;
 }
