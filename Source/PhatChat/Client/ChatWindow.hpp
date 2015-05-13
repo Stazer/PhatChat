@@ -8,6 +8,7 @@
 #include <FL/fl_draw.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Input.H>
+#include <FL/Fl_Browser.H>
 #include <FL/Fl_Gl_Window.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Text_Display.H>
@@ -53,8 +54,10 @@ namespace PhatChat
 
 			private :
 				Fl_Window window ;
-				Fl_Text_Buffer buffer ;
-				Fl_Text_Display log ;
+				//Fl_Text_Buffer buffer ;
+				//Fl_Text_Display log ;
+				
+				Fl_Browser browser ;
 				mutable Fl_Input message ;
 				Fl_Button send ;
 
