@@ -54,10 +54,9 @@ namespace PhatChat
 
 			private :
 				Fl_Window window ;
-				//Fl_Text_Buffer buffer ;
-				//Fl_Text_Display log ;
+				Fl_Text_Buffer buffer ;
+				Fl_Text_Display log ;
 				
-				Fl_Browser browser ;
 				mutable Fl_Input message ;
 				Fl_Button send ;
 

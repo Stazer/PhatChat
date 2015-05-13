@@ -2,14 +2,13 @@
 
 PhatChat::Client::ChatWindow::ChatWindow ( ) :
 	window ( 800 , 600 ) ,
-	//log ( 10 , 10 , 780 , 540 ) ,
-	browser ( 10 , 10 , 780 , 540 ) ,
+	log ( 10 , 10 , 780 , 540 ) ,
 	message ( 10 , 560 , 670 , 30 ) ,
 	send ( 690 , 560 , 100 , 30 , "Send" )
 {
 	this->window.label ( "PhatChat" ) ;
 
-	//this->log.buffer ( this->buffer ) ;
+	this->log.buffer ( this->buffer ) ;
 
 	this->send.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
 	this->message.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
@@ -55,10 +54,9 @@ std::string PhatChat::Client::ChatWindow::getMessage ( ) const
 	return message ;
 }
 
-void PhatChat::Client::ChatWindow::addMessage ( const std::string& message )
+void PhatChat::Client::ChatWindow::addMessage ( const std::string & message )
 {
-	this->browser.add ( ( message + "\n" ).c_str ( ) ) ;
-    //this->log.insert ( ( message + "\n" ).c_str ( ) ) ;
+    this->log.insert ( ( message + "\n" ).c_str ( ) ) ;
 }
 
 void PhatChat::Client::ChatWindow::onSendPushed ( Fl_Widget * widget , void * data )

@@ -64,6 +64,8 @@ int PhatChat::Client::Application::main ( const std::vector <std::string> & argu
         else
         {
             std::cout << "Connection to " << this->socket.getRemoteAddress ( ) << ":" << this->socket.getRemotePort ( ) << " opened!\n" ;
+            
+            this->chatWindow.addMessage ( "Connection to " + this->socket.getRemoteAddress ( ).toString ( ) + ":" + std::to_string ( this->socket.getRemotePort ( ) ) + " opened!" ) ;
 
             // send username request
             this->username = this->connectionWindow.getUsername ( ) ;
@@ -112,7 +114,7 @@ void PhatChat::Client::Application::receiveThreadFunction ( )
         	this->handlePacket ( packet ) ;
 		else
         {
-            this->chatWindow.addMessage ( "Connection to " + this->socket.getRemoteAddress ( ).toString ( ) + ":" + std::to_string ( this->socket.getRemotePort ( ) ) + " closed!\n" ) ;
+            this->chatWindow.addMessage ( "Connection to " + this->socket.getRemoteAddress ( ).toString ( ) + ":" + std::to_string ( this->socket.getRemotePort ( ) ) + " closed!" ) ;
             break ;
         }
 	}
@@ -143,13 +145,16 @@ void PhatChat::Client::Application::handlePacket ( sf::Packet packet )
 	{
 		PhatChat::ResponseUsernamePacket responseUsenamePacket = PhatChat::ResponseUsernamePacket::decode ( packet ) ;
 		this->username = responseUsenamePacket.getUsername ( ) ;
+		std::cout << "Your username was set to " << this->username << "!\n" ;
+		this->chatWindow.addMessage ( "Your username was set to " + this->username + "!" ) ;
     }
 	else if ( operationCode == PhatChat::OperationCode::MESSAGE )
 	{
 		PhatChat::MessagePacket messagePacket ( PhatChat::MessagePacket::decode ( packet ) ) ;
         std::cout << "Received message from " << username << " saying \"" << messagePacket.getMessage ( ) << "\"!" << std::endl ;
 
-		this->chatWindow.addMessage ( messagePacket.getUsername ( ) + "> " + messagePacket.getMessage ( ) ) ;
+		std::string header = ! messagePacket.getUsername ( ).empty ( ) ? messagePacket.getUsername ( ) + "> " : "" ;
+		this->chatWindow.addMessage ( header + messagePacket.getMessage ( ) ) ;
 	}
 	else
 		std::cout << "Operation code is unknown! Skip " << packet.getDataSize ( ) << " bytes." << std::endl ;
