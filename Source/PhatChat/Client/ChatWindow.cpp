@@ -11,6 +11,7 @@ PhatChat::Client::ChatWindow::ChatWindow ( ) :
 	this->log.buffer ( this->buffer ) ;
 
 	this->send.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
+	this->message.callback ( PhatChat::Client::ChatWindow::onSendPushed , this ) ;
 
 	this->window.end ( ) ;
 }
@@ -48,6 +49,7 @@ std::string PhatChat::Client::ChatWindow::getMessage ( ) const
 {
     std::string message = this->message.value ( ) ;
 	this->message.value ( "" ) ;
+	this->message.handle ( FL_PUSH ) ;
 
 	return message ;
 }
