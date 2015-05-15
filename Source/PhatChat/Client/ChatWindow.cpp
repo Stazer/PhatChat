@@ -27,6 +27,8 @@ void PhatChat::Client::ChatWindow::hide ( )
 void PhatChat::Client::ChatWindow::show ( )
 {
 	this->window.show ( ) ;
+	fl_color_chooser("Choose a color", r, g, b, 0); 
+}
 }
 
 // accesor for open
