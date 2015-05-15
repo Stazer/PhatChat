@@ -51,6 +51,11 @@ namespace PhatChat
 
 				// adds message to the gui
 				void addMessage ( const std::string & message ) ;
+				
+				//color components
+				double b; 
+				double g; 
+				double r;
 
 			private :
 				Fl_Window window ;
