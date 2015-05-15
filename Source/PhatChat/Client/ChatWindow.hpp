@@ -20,6 +20,8 @@
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Multiline_Output.H>
 #include <string>
+#include <FL/Fl_Color_Chooser.H>
+
 
 namespace PhatChat
 {
