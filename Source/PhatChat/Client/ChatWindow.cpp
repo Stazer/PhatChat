@@ -10,7 +10,7 @@ PhatChat::Client::ChatWindow::ChatWindow ( ) :
 	
 	Fl_Color c =  fl_rgb_color(r, g, b);
 	this->window.color(c); 
-	this->browser.textcolor(c); 
+	
 
 	this->log.buffer ( this->buffer ) ;
 
