@@ -7,6 +7,10 @@ PhatChat::Client::ChatWindow::ChatWindow ( ) :
 	send ( 690 , 560 , 100 , 30 , "Send" )
 {
 	this->window.label ( "PhatChat" ) ;
+	
+	Fl_Color c =  fl_rgb_color(r, g, b);
+	this->window.color(c); 
+	this->browser.textcolor(c); 
 
 	this->log.buffer ( this->buffer ) ;
 
